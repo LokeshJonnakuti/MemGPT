@@ -22,7 +22,7 @@ def get_webui_completion(prompt, settings=SIMPLE):
 
     try:
         URI = urljoin(HOST.strip("/") + "/", WEBUI_API_SUFFIX.strip("/"))
-        response = requests.post(URI, json=request)
+        response = requests.post(URI, json=request, timeout=60)
         if response.status_code == 200:
             result = response.json()
             result = result["results"][0]["text"]

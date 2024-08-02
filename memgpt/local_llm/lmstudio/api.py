@@ -35,7 +35,7 @@ def get_lmstudio_completion(prompt, settings=SIMPLE, api="chat"):
         raise ValueError(f"Provided OPENAI_API_BASE value ({HOST}) must begin with http:// or https://")
 
     try:
-        response = requests.post(URI, json=request)
+        response = requests.post(URI, json=request, timeout=60)
         if response.status_code == 200:
             result = response.json()
             if api == "chat":
