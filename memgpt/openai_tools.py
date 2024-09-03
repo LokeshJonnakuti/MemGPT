@@ -1,9 +1,9 @@
 import asyncio
-import random
 import os
 import time
 
 from .local_llm.chat_completion_proxy import get_chat_completion
+import secrets
 
 HOST = os.getenv("OPENAI_API_BASE")
 HOST_TYPE = os.getenv("BACKEND_TYPE")  # default None == ChatCompletion
@@ -44,7 +44,7 @@ def retry_with_exponential_backoff(
                     raise Exception(f"Maximum number of retries ({max_retries}) exceeded.")
 
                 # Increment the delay
-                delay *= exponential_base * (1 + jitter * random.random())
+                delay *= exponential_base * (1 + jitter * secrets.SystemRandom().random())
 
                 # Sleep for the delay
                 time.sleep(62)
@@ -92,7 +92,7 @@ def aretry_with_exponential_backoff(
                     raise Exception(f"Maximum number of retries ({max_retries}) exceeded.")
 
                 # Increment the delay
-                delay *= exponential_base * (1 + jitter * random.random())
+                delay *= exponential_base * (1 + jitter * secrets.SystemRandom().random())
 
                 # Sleep for the delay
                 await asyncio.sleep(62)
