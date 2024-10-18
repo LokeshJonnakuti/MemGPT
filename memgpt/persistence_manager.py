@@ -11,6 +11,7 @@ from .memory import (
     LocalArchivalMemory,
 )
 from .utils import get_local_time, printd
+import fickling
 
 
 class PersistenceManager(ABC):
@@ -50,7 +51,7 @@ class InMemoryStateManager(PersistenceManager):
     @staticmethod
     def load(filename):
         with open(filename, "rb") as f:
-            return pickle.load(f)
+            return fickling.load(f)
 
     def save(self, filename):
         with open(filename, "wb") as fh:
@@ -120,7 +121,7 @@ class LocalStateManager(PersistenceManager):
     def load(filename, agent_config: AgentConfig):
         """ Load a LocalStateManager from a file. """ ""
         with open(filename, "rb") as f:
-            manager = pickle.load(f)
+            manager = fickling.load(f)
 
         manager.archival_memory = LocalArchivalMemory(agent_config=agent_config)
         return manager
